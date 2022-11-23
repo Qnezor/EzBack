@@ -1,3 +1,1 @@
-                               
-![EzBack 3.0 logo](/files/logo.png)
-### EzBack - Add-on for platform-tools to simplify application backups
+### *EzBack* <sub>- Add-on for platform-tools to simplify application backups</sub>
