@@ -26,10 +26,10 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo    ____    ___           __     ____  ___    __  ___      __
-echo   / __/__ / _ )___ _____/ /__  / __/ / _ \  / / / _ )___ / /____ _
-echo  / _//_ // _  / _ `/ __/  '_/ /__ \_/ // / / / / _  / -_) __/ _ `/
-echo /___//__/____/\_,_/\__/_/\_\ /____(_)___(_)_/ /____/\__/\__/\_,_/                                                                  
+echo     ____    ___           __     ____  ___    ____   ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  /_  /  / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ /__ \_/ // / / __/  / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\ /____(_)___(_)____/ /____/\__/\__/\_,_/
 echo.
 echo  Press 1 for Backup apps
 echo.
@@ -155,13 +155,14 @@ echo.
 echo  Enter the file name
 echo  Example: nosystem-backup
 echo.
-set /p folderwithbackup="-"
+set /p FileName="-"
 goto restorestart
 
 :restorestart
 cls
-start cmd.exe /k %adbfolder%\adb restore %SaveFolder%\%FlieName%.ba
-echo Application recovery started
+start cmd.exe /k %adbfolder%\adb restore %SaveFolder%\%FileName%.ba
+echo.
+echo  Application recovery started
 echo.
 echo.
 echo %ezbi%
