@@ -1,11 +1,14 @@
-title EzBack 5.0 Beta
+title EzBack 6.0
 color F0
 cls
 
 @echo off
 ::Variables
-set ezbi= EzBack - a free add-on for adb
-set link= https://github.com/Qnezor/EzBack
+set ezbi= Thanks for using EzBack
+set link= https://qnezor.github.io/EzBack
+set bbm=Back to main menu
+set gb=Go Back
+set nw=(not working)
 
 ::platform-tools search
 echo.
@@ -26,39 +29,241 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo     ____    ___           __     ____  ___    ____   ___      __
-echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  /_  /  / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ /__ \_/ // / / __/  / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\ /____(_)___(_)____/ /____/\__/\__/\_,_/
+echo     ____    ___           __     ____  ___    ___      __      
+echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___/ /____/\__/\__/\_,_/                                                             
 echo.
-echo  Press 1 for Backup apps
+echo  1 - Backup/Restore apps
+echo  2 - Delete system apps
 echo.
-echo  Press 2 to Restore apps
-echo.
-echo  Press 3 to install custom recovery (not working)
+echo  3 - Info %nw%
 echo.
 echo  I do not speak English, so I apologize for translation errors.
 echo  If you want to help with the translation, email me at qnezoru@gmail.com
 echo.
 set /p mmchoice="-"
 
-if %mmchoice% equ 1 (
-goto backup1
-)
-if %mmchoice% equ 2 (
-goto restore1
-)
-if %mmchoice% equ 3 (
-goto errormsg1
-)
+if %mmchoice% equ 1 goto br
+if %mmchoice% equ 2 goto delm
+if %mmchoice% equ 3 goto info
 if %mmchoice% equ rickroll (
 start "" https://www.youtube.com/watch?v=dQw4w9WgXcQ
 goto secret
 )
-if not %mmchoice% equ 1 (
-goto errormsg1
-)
+if not %mmchoice% equ 1 goto errormsg1
 
+:br
+cls
+echo.
+echo  1 - Backup apps
+echo  2 - Restore apps
+echo.
+echo  0 - %bbm%
+echo.
+set /p brchoice="-"
+
+if %brchoice% equ 1 goto backup1
+if %brchoice% equ 2 goto restore1
+if %brchoice% equ 0 goto mm
+
+
+::deleteapps
+:delm
+cls
+echo.
+echo  1 - Delete MIUI apps
+echo  2 - Delete Google Apps
+echo.
+echo  Press 0 to Main Menu
+echo.
+set /p delchoice="-"
+
+if %delchoice% equ 1 goto delmi
+if %delchoice% equ 2 goto delgo
+if %delchoice% equ 0 goto mm
+
+:delmi
+cls
+echo.
+echo  1 - MIUI analytics and advertising services
+echo  2 - Facebook Services
+echo  3 - Netflix Services
+echo  4 - Amazon Services
+echo  5 - Services Mi Pay India %nw%
+echo  6 - App store GetApps %nw%
+echo  7 - Xiaomi Games %nw%
+echo  8 - Wallpaper carousel
+echo  9 - Mi Browser %nw%
+echo  10 - ShareMe %nw%
+echo  11 - Gallery %nw%
+echo  12 - Notes %nw%
+echo  13 - Mi Video %nw%
+echo  14 - MIUI Calendar %nw%
+echo  15 - SIM card menu %nw%
+echo  16 - Reports %nw%
+echo  17 - Weather %nw%
+echo  18 - File Manager %nw%
+echo.
+echo  100 - %gb%
+echo  200 - %bbm%
+echo.
+set /p delchoice="-"
+
+if %delchoice% equ 1 goto miuiservices
+if %delchoice% equ 2 goto facebook
+if %delchoice% equ 3 goto netflix
+if %delchoice% equ 4 goto amazon
+if %delchoice% equ 5 goto mipay
+if %delchoice% equ 6 goto getapps
+if %delchoice% equ 7 goto games
+if %delchoice% equ 8 goto wallpaper
+if %delchoice% equ 9 goto mibrowser
+if %delchoice% equ 10 goto shareme
+if %delchoice% equ 11 goto gallery
+if %delchoice% equ 12 goto notes
+if %delchoice% equ 13 goto mivideo
+if %delchoice% equ 14 goto calendar_miui
+if %delchoice% equ 15 goto stk
+if %delchoice% equ 16 goto bugreport
+if %delchoice% equ 17 goto weather
+if %delchoice% equ 18 goto fileexplorer
+if %delchoice% equ 100 goto delm
+if %delchoice% equ 200 goto mm
+
+:miuiservices
+cls
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.analytics
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.msa.global
+echo.
+echo  MIUI Analytics and Advertising Services removal has begun
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  1 - %gb%
+echo  2 - %bbm%
+echo  3 - Exit
+echo.
+set /p miend="-"
+
+if %miend% equ 1 goto delmi
+if %miend% equ 2 goto mm
+if %miend% equ 3 goto exit1
+
+:facebook
+cls
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.services
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.system
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.appmanager 
+echo.
+echo  Facebook removal has begun
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  1 - %gb%
+echo  2 - %bbm%
+echo  3 - Exit
+echo.
+set /p miend="-"
+
+if %miend% equ 1 goto delmi
+if %miend% equ 2 goto mm
+if %miend% equ 3 goto exit1
+
+:netflix
+cls
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.netflix.partner.activation
+echo.
+echo  NetFlix removal has begun
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  1 - %gb%
+echo  2 - %bbm%
+echo  3 - Exit
+echo.
+set /p miend="-"
+
+if %miend% equ 1 goto delmi
+if %miend% equ 2 goto mm
+if %miend% equ 3 goto exit1
+
+:amazon
+cls
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.amazon.mShop.android.shopping
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.amazon.appmanager
+echo.
+echo  Amazon removal has begun
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  1 - %gb%
+echo  2 - %bbm%
+echo  3 - Exit
+echo.
+set /p miend="-"
+
+if %miend% equ 1 goto delmi
+if %miend% equ 2 goto mm
+if %miend% equ 3 goto exit1
+
+
+:wallpaper
+cls
+start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.android.fashiongallery
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  Press ENTER to exit
+set /p =
+goto exit1
+
+:delgo
+cls
+echo.
+echo  1 - Google Duo %nw%
+echo  2 - Google One %nw%
+echo  3 - Google Assistant %nw%
+echo  4 - Google Calendar %nw%
+echo  5 - Google Maps %nw%
+echo  6 - Google Music %nw%
+echo  7 - Google Lens %nw%
+echo  8 - Google %nw%
+echo  9 - Google Movies %nw%
+echo  10 - Google Photos %nw%
+echo  11 - Google Device Health Services %nw%
+echo  12 - Android Auto %nw%
+echo  13 - Chrome %nw%
+echo  14 - Gmail %nw%
+echo  15 - YouTube %nw%
+echo.
+echo  100 - %gb%
+echo  200 - %bbm%
+echo.
+set /p delchoice="-"
+
+if %delchoice% equ 1 goto duo
+if %delchoice% equ 2 goto one
+if %delchoice% equ 3 goto assistant
+if %delchoice% equ 4 goto calendar
+if %delchoice% equ 5 goto maps
+if %delchoice% equ 6 goto music
+if %delchoice% equ 7 goto lens
+if %delchoice% equ 8 goto google
+if %delchoice% equ 9 goto movies
+if %delchoice% equ 10 goto photo
+if %delchoice% equ 11 goto health
+if %delchoice% equ 12 goto auto
+if %delchoice% equ 13 goto chrome
+if %delchoice% equ 14 goto gmail
+if %delchoice% equ 15 goto youtube
+if %delchoice% equ 100 goto delm
+if %delchoice% equ 200 goto mm
 
 ::backup apps
 :backup1
@@ -89,9 +294,8 @@ set /p SaveFolder="-"
 goto backup2
 )
 
-if not %folderchoice% equ y (
-goto errormsg1
-)
+if not %folderchoice% equ y goto errormsg1
+
 
 :backup2
 cls
@@ -117,27 +321,21 @@ start cmd.exe /k %adbfolder%\adb backup -apk -shared -all -system -f %SaveFolder
 set backupchoice=nosystem
 goto backupstart
 )
-if not %D% equ y (
-goto errormsg1
-)
+if not %D% equ y goto errormsg1
 
 :backupstart
 cls
 echo.
 echo  Backup is started with the condition %backupchoice%
-echo.
 echo  Backup file name: %backupchoice%-%FlieName%.ba
-echo.
 echo  The backup will be saved in the path: %SaveFolder%
 echo.
-echo.
 echo %ezbi%
-echo.
 echo %link%
 echo.
 echo  Press ENTER to exit
-set /p exit1=
-goto exit2
+set /p =
+goto exit1
 
 ::restore
 :restore1
@@ -161,28 +359,23 @@ goto restorestart
 :restorestart
 cls
 start cmd.exe /k %adbfolder%\adb restore %SaveFolder%\%FileName%.ba
-echo.
 echo  Application recovery started
 echo.
-echo.
 echo %ezbi%
-echo.
 echo %link%
 echo.
 echo  Press ENTER to exit
-set /p exit1=
-goto exit2
+set /p =
+goto exit1
 
 ::error
 :errormsg1
 cls
 echo.
 echo  Error #1. Incorrect choice.
-echo  Please restart the program
 echo.
 echo.
 echo %ezbi%
-echo.
 echo %link%
 echo.
 echo  Press ENTER to return to the main menu
@@ -200,5 +393,18 @@ set /p =
 goto mm
 
 ::exit
-:exit2
+:exit1
 exit
+
+::info
+:info
+cls
+echo.
+echo     ____    ___           __     ____  ___    ___      __      
+echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___/ /____/\__/\__/\_,_/     
+echo.
+echo EzBack is a free addon for adb that makes working with backups and applications easier.
+echo.
+echo
