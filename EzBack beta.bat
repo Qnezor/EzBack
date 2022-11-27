@@ -12,15 +12,19 @@ set nw=(not working)
 
 ::platform-tools search
 echo.
+if exist adb.exe (
+cls
+set adbfolder=
+goto mm
+)
 if exist C:\platform-tools\adb.exe (
 cls
-set adbfolder=C:\platform-tools
+set adbfolder=C:\platform-tools\
 goto mm
 ) else (
-echo.
 echo  adb.exe not found
 echo  Specify the path to the platform-tools folder
-echo  Example: C:\platform-tools
+echo  Example: C:\platform-tools\
 set /p adbfolder="-"
 goto mm
 )
@@ -29,10 +33,10 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo     ____    ___           __     ____  ___    ___      __      
-echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___/ /____/\__/\__/\_,_/                                                             
+echo     ____    ___           __     ____  ___    __  ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / / / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___(_)_/ /____/\__/\__/\_,_/                                                  
 echo.
 echo  1 - Backup/Restore apps
 echo  2 - Delete system apps
@@ -62,7 +66,6 @@ echo.
 echo  0 - %bbm%
 echo.
 set /p brchoice="-"
-
 if %brchoice% equ 1 goto backup1
 if %brchoice% equ 2 goto restore1
 if %brchoice% equ 0 goto mm
@@ -78,7 +81,6 @@ echo.
 echo  Press 0 to Main Menu
 echo.
 set /p delchoice="-"
-
 if %delchoice% equ 1 goto delmi
 if %delchoice% equ 2 goto delgo
 if %delchoice% equ 0 goto mm
@@ -90,11 +92,11 @@ echo  1 - MIUI analytics and advertising services
 echo  2 - Facebook Services
 echo  3 - Netflix Services
 echo  4 - Amazon Services
-echo  5 - Services Mi Pay India %nw%
-echo  6 - App store GetApps %nw%
-echo  7 - Xiaomi Games %nw%
+echo  5 - Services Mi Pay India
+echo  6 - App store GetApps
+echo  7 - Xiaomi Games
 echo  8 - Wallpaper carousel
-echo  9 - Mi Browser %nw%
+echo  9 - Mi Browser
 echo  10 - ShareMe %nw%
 echo  11 - Gallery %nw%
 echo  12 - Notes %nw%
@@ -109,7 +111,6 @@ echo  100 - %gb%
 echo  200 - %bbm%
 echo.
 set /p delchoice="-"
-
 if %delchoice% equ 1 goto miuiservices
 if %delchoice% equ 2 goto facebook
 if %delchoice% equ 3 goto netflix
@@ -132,71 +133,58 @@ if %delchoice% equ 100 goto delm
 if %delchoice% equ 200 goto mm
 
 :miuiservices
-cls
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.analytics
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.msa.global
-echo.
-echo  MIUI Analytics and Advertising Services removal has begun
-echo.
-echo %ezbi%
-echo %link%
-echo.
-echo  1 - %gb%
-echo  2 - %bbm%
-echo  3 - Exit
-echo.
-set /p miend="-"
-
-if %miend% equ 1 goto delmi
-if %miend% equ 2 goto mm
-if %miend% equ 3 goto exit1
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.analytics
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.msa.global
+set appdel=MIUI analytics and advertising services
+goto midelinfo
 
 :facebook
-cls
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.services
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.system
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.facebook.appmanager 
-echo.
-echo  Facebook removal has begun
-echo.
-echo %ezbi%
-echo %link%
-echo.
-echo  1 - %gb%
-echo  2 - %bbm%
-echo  3 - Exit
-echo.
-set /p miend="-"
-
-if %miend% equ 1 goto delmi
-if %miend% equ 2 goto mm
-if %miend% equ 3 goto exit1
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.facebook.services
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.facebook.system
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.facebook.appmanager 
+set appdel=Facebook
+goto midelinfo
 
 :netflix
-cls
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.netflix.partner.activation
-echo.
-echo  NetFlix removal has begun
-echo.
-echo %ezbi%
-echo %link%
-echo.
-echo  1 - %gb%
-echo  2 - %bbm%
-echo  3 - Exit
-echo.
-set /p miend="-"
-
-if %miend% equ 1 goto delmi
-if %miend% equ 2 goto mm
-if %miend% equ 3 goto exit1
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.netflix.partner.activation
+set appdel=Netflix
+goto midelinfo
 
 :amazon
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.amazon.mShop.android.shopping
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.amazon.appmanager
+set appdel=Amazon
+goto midelinfo
+
+:mipay
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.mipay.wallet.in
+set appdel=Mi Pay India
+goto midelinfo
+
+:getapps
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.xiaomi.mipicks
+set appdel=GetApps
+goto midelinfo
+
+:games
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.xiaomi.glgm
+set appdel=Xiaomi Games
+goto midelinfo
+
+:wallpaper
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.android.fashiongallery
+set appdel=Wallpaper Carousel
+goto midelinfo
+
+:mibrowser
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.mi.globalbrowser
+set appdel=Mi Brwoser
+goto midelinfo
+
+:midelinfo
 cls
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.amazon.mShop.android.shopping
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.amazon.appmanager
 echo.
-echo  Amazon removal has begun
+echo  %appdel% deletion has started
 echo.
 echo %ezbi%
 echo %link%
@@ -206,22 +194,9 @@ echo  2 - %bbm%
 echo  3 - Exit
 echo.
 set /p miend="-"
-
 if %miend% equ 1 goto delmi
 if %miend% equ 2 goto mm
 if %miend% equ 3 goto exit1
-
-
-:wallpaper
-cls
-start cmd.exe /k %adbfolder%\adb shell pm uninstall --user 0 com.miui.android.fashiongallery
-echo.
-echo %ezbi%
-echo %link%
-echo.
-echo  Press ENTER to exit
-set /p =
-goto exit1
 
 :delgo
 cls
@@ -246,7 +221,6 @@ echo  100 - %gb%
 echo  200 - %bbm%
 echo.
 set /p delchoice="-"
-
 if %delchoice% equ 1 goto duo
 if %delchoice% equ 2 goto one
 if %delchoice% equ 3 goto assistant
@@ -311,13 +285,13 @@ set /p D="-"
 
 if %D% equ y (
 cls
-start cmd.exe /k %adbfolder%\adb backup -apk -shared -all -system -f %SaveFolder%\system-%FlieName%.ba
+start cmd.exe /k %adbfolder%adb backup -apk -shared -all -system -f %SaveFolder%\system-%FlieName%.ba
 set backupchoice=system
 goto backupstart
 )
 if %D% equ n (
 cls
-start cmd.exe /k %adbfolder%\adb backup -apk -shared -all -system -f %SaveFolder%\nosystem-%FlieName%.ba
+start cmd.exe /k %adbfolder%adb backup -apk -shared -all -system -f %SaveFolder%\nosystem-%FlieName%.ba
 set backupchoice=nosystem
 goto backupstart
 )
@@ -358,7 +332,7 @@ goto restorestart
 
 :restorestart
 cls
-start cmd.exe /k %adbfolder%\adb restore %SaveFolder%\%FileName%.ba
+start cmd.exe /k %adbfolder%adb restore %SaveFolder%\%FileName%.ba
 echo  Application recovery started
 echo.
 echo %ezbi%
@@ -400,11 +374,11 @@ exit
 :info
 cls
 echo.
-echo     ____    ___           __     ____  ___    ___      __      
-echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___/ /____/\__/\__/\_,_/     
+echo     ____    ___           __     ____  ___    __  ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / / / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___(_)_/ /____/\__/\__/\_,_/
 echo.
 echo EzBack is a free addon for adb that makes working with backups and applications easier.
 echo.
-echo
+echo.
