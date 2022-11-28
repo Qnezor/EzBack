@@ -33,10 +33,10 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo     ____    ___           __     ____  ___    __  ___      __
-echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / / / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___(_)_/ /____/\__/\__/\_,_/                                                  
+echo     ____    ___           __     ____   __  ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/  / / / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_/ /____/\__/\__/\_,_/                                                  
 echo.
 echo  1 - Backup/Restore apps
 echo  2 - Delete system apps
@@ -97,15 +97,15 @@ echo  6 - App store GetApps
 echo  7 - Xiaomi Games
 echo  8 - Wallpaper carousel
 echo  9 - Mi Browser
-echo  10 - ShareMe %nw%
-echo  11 - Gallery %nw%
-echo  12 - Notes %nw%
-echo  13 - Mi Video %nw%
-echo  14 - MIUI Calendar %nw%
-echo  15 - SIM card menu %nw%
-echo  16 - Reports %nw%
-echo  17 - Weather %nw%
-echo  18 - File Manager %nw%
+echo  10 - ShareMe
+echo  11 - Gallery
+echo  12 - Notes
+echo  13 - Mi Video
+echo  14 - Mi Calendar
+echo  15 - SIM card menu
+echo  16 - Reports
+echo  17 - Weather
+echo  18 - File Manager
 echo.
 echo  100 - %gb%
 echo  200 - %bbm%
@@ -124,8 +124,8 @@ if %delchoice% equ 10 goto shareme
 if %delchoice% equ 11 goto gallery
 if %delchoice% equ 12 goto notes
 if %delchoice% equ 13 goto mivideo
-if %delchoice% equ 14 goto calendar_miui
-if %delchoice% equ 15 goto stk
+if %delchoice% equ 14 goto micalendar
+if %delchoice% equ 15 goto sim
 if %delchoice% equ 16 goto bugreport
 if %delchoice% equ 17 goto weather
 if %delchoice% equ 18 goto fileexplorer
@@ -180,6 +180,54 @@ goto midelinfo
 start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.mi.globalbrowser
 set appdel=Mi Brwoser
 goto midelinfo
+
+:shareme
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.xiaomi.midrop
+set appdel=ShareMe
+goto midelinfo
+
+:gallery
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.gallery
+set appdel=Gallery
+goto midelinfo
+
+:notes
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.notes
+set appdel=Notes
+goto midelinfo
+
+:mivideo
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.video
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.videoplayer
+set appdel=Mi Video
+goto midelinfo
+
+:micalendar
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.xiaomi.calendar
+set appdel=Mi Calendar
+goto midelinfo
+
+:sim
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.android.stk
+set appdel=SIM Card Menu
+goto midelinfo
+
+:bugreport
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.bugreport
+set appdel=Reports
+goto midelinfo
+
+:weather
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.miui.weather2
+set appdel=Weather
+goto midelinfo
+
+:fileexplorer
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.mi.android.globalFileexplorer
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.android.fileexplorer
+set appdel=Weather
+goto midelinfo
+
 
 :midelinfo
 cls
@@ -247,9 +295,9 @@ echo  The backup will be saved to C:\EzBackups
 echo.
 echo  y - Do you agree
 echo  n - Change path
-set /p folderchoice="-"
+set /p SaveFolder="-"
 
-if %folderchoice% equ y (
+if %SaveFolder% equ y (
 if exist C:\EzBackups (
 set SaveFolder=C:\EzBackups
 goto backup2
@@ -260,7 +308,7 @@ goto backup2
 )
 
 )
-if %folderchoice% equ n (
+if %SaveFolder% equ n (
 echo.
 echo  Specify a folder for saving
 echo  Example: C:\Users\User\Desktop
@@ -268,7 +316,7 @@ set /p SaveFolder="-"
 goto backup2
 )
 
-if not %folderchoice% equ y goto errormsg1
+if not %SaveFolder% equ y goto errormsg1
 
 
 :backup2
