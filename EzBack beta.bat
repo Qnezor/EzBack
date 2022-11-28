@@ -1,4 +1,4 @@
-title EzBack 6.0
+title EzBack 6.1.1 Beta
 color F0
 cls
 
@@ -25,6 +25,7 @@ goto mm
 echo  adb.exe not found
 echo  Specify the path to the platform-tools folder
 echo  Example: C:\platform-tools\
+echo  The presence of \ at the end is MANDATORY!
 set /p adbfolder="-"
 goto mm
 )
@@ -33,10 +34,10 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo     ____    ___           __     ____   __  ___      __
-echo    / __/__ / _ )___ _____/ /__  / __/  / / / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_/ /____/\__/\__/\_,_/                                                  
+echo     ____    ___           __     ____   __  __  ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/  / / / / / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_(_)_/ /____/\__/\__/\_,_/
 echo.
 echo  1 - Backup/Restore apps
 echo  2 - Delete system apps
@@ -78,7 +79,7 @@ echo.
 echo  1 - Delete MIUI apps
 echo  2 - Delete Google Apps
 echo.
-echo  Press 0 to Main Menu
+echo  0 - %bbm%
 echo.
 set /p delchoice="-"
 if %delchoice% equ 1 goto delmi
@@ -249,8 +250,8 @@ if %miend% equ 3 goto exit1
 :delgo
 cls
 echo.
-echo  1 - Google Duo %nw%
-echo  2 - Google One %nw%
+echo  1 - Google Duo
+echo  2 - Google One
 echo  3 - Google Assistant %nw%
 echo  4 - Google Calendar %nw%
 echo  5 - Google Maps %nw%
@@ -287,6 +288,33 @@ if %delchoice% equ 15 goto youtube
 if %delchoice% equ 100 goto delm
 if %delchoice% equ 200 goto mm
 
+:duo
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.apps.tachyon
+set appdel=Google Duo
+goto godelinfo
+
+:one
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.apps.subscriptions.red 
+set appdel=Google One
+goto godelinfo
+
+:godelinfo
+cls
+echo.
+echo  %appdel% deletion has started
+echo.
+echo %ezbi%
+echo %link%
+echo.
+echo  1 - %gb%
+echo  2 - %bbm%
+echo  3 - Exit
+echo.
+set /p miend="-"
+if %miend% equ 1 goto delgo
+if %miend% equ 2 goto mm
+if %miend% equ 3 goto exit1
+
 ::backup apps
 :backup1
 cls
@@ -295,9 +323,9 @@ echo  The backup will be saved to C:\EzBackups
 echo.
 echo  y - Do you agree
 echo  n - Change path
-set /p SaveFolder="-"
+set /p folderchoice="-"
 
-if %SaveFolder% equ y (
+if %folderchoice% equ y (
 if exist C:\EzBackups (
 set SaveFolder=C:\EzBackups
 goto backup2
@@ -308,7 +336,7 @@ goto backup2
 )
 
 )
-if %SaveFolder% equ n (
+if %folderchoice% equ n (
 echo.
 echo  Specify a folder for saving
 echo  Example: C:\Users\User\Desktop
@@ -316,7 +344,7 @@ set /p SaveFolder="-"
 goto backup2
 )
 
-if not %SaveFolder% equ y goto errormsg1
+if not %folderchoice% equ y goto errormsg1
 
 
 :backup2
@@ -355,9 +383,9 @@ echo.
 echo %ezbi%
 echo %link%
 echo.
-echo  Press ENTER to exit
+echo  Press ENTER to return to the main menu
 set /p =
-goto exit1
+goto mm
 
 ::restore
 :restore1
@@ -386,9 +414,9 @@ echo.
 echo %ezbi%
 echo %link%
 echo.
-echo  Press ENTER to exit
+echo  Press ENTER to return to the main menu
 set /p =
-goto exit1
+goto mm
 
 ::error
 :errormsg1
@@ -422,10 +450,10 @@ exit
 :info
 cls
 echo.
-echo     ____    ___           __     ____  ___    __  ___      __
-echo    / __/__ / _ )___ _____/ /__  / __/ / _ \  / / / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_/ // / / / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)___(_)_/ /____/\__/\__/\_,_/
+echo     ____    ___           __     ____   __  __  ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/  / / / / / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / / / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_(_)_/ /____/\__/\__/\_,_/
 echo.
 echo EzBack is a free addon for adb that makes working with backups and applications easier.
 echo.
