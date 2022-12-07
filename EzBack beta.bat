@@ -1,5 +1,4 @@
-title EzBack 6.1.1 Beta
-color F0
+title EzBack 6.1.2 Beta
 cls
 
 @echo off
@@ -34,10 +33,10 @@ goto mm
 ::Main Menu
 :mm
 cls
-echo     ____    ___           __     ____   __  __  ___      __
-echo    / __/__ / _ )___ _____/ /__  / __/  / / / / / _ )___ / /____ _
-echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / / / _  / -_) __/ _ `/
-echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_(_)_/ /____/\__/\__/\_,_/
+echo     ____    ___           __     ____   __  ____   ___      __
+echo    / __/__ / _ )___ _____/ /__  / __/  / / /_  /  / _ )___ / /____ _
+echo   / _//_ // _  / _ `/ __/  '_/ / _ \_ / / / __/  / _  / -_) __/ _ `/
+echo  /___//__/____/\_,_/\__/_/\_\  \___(_)_(_)____/ /____/\__/\__/\_,_/                                                        
 echo.
 echo  1 - Backup/Restore apps
 echo  2 - Delete system apps
@@ -252,10 +251,10 @@ cls
 echo.
 echo  1 - Google Duo
 echo  2 - Google One
-echo  3 - Google Assistant %nw%
-echo  4 - Google Calendar %nw%
-echo  5 - Google Maps %nw%
-echo  6 - Google Music %nw%
+echo  3 - Google Assistant
+echo  4 - Google Calendar
+echo  5 - Google Maps
+echo  6 - Google Music
 echo  7 - Google Lens %nw%
 echo  8 - Google %nw%
 echo  9 - Google Movies %nw%
@@ -296,6 +295,26 @@ goto godelinfo
 :one
 start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.apps.subscriptions.red 
 set appdel=Google One
+goto godelinfo
+
+:assistant
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.apps.googleassistant
+set appdel=Google Assistant
+goto godelinfo
+
+:calendar
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.calendar
+set appdel=Google Calendar
+goto godelinfo
+
+:maps
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.apps.maps
+set appdel=Google Maps
+goto godelinfo
+
+:music
+start cmd.exe /k %adbfolder%adb shell pm uninstall --user 0 com.google.android.music
+set appdel=Google Music
 goto godelinfo
 
 :godelinfo
