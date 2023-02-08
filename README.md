@@ -3,4 +3,4 @@
 | :------------------: |:------------------:|
 | [6.0](https://github.com/qnezor/EzBack/releases/tag/6.0) | [6.1.2 BETA](https://github.com/qnezor/EzBack/releases/tag/6.1.2-beta) |
 
-![EzBack 6.0](/files/ezback5.0.png) 
+![EzBack 6.0](/files/ezback6.0.png) 
